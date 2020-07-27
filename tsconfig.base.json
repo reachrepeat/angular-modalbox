@@ -18,6 +18,8 @@
     "paths": {
       "angular-modalbox": [
         "dist/angular-modalbox/angular-modalbox",
+        "dist/angular-modalbox",
+        "dist/angular-modalbox/angular-modalbox",
         "dist/angular-modalbox"
       ]
     }

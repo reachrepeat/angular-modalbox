@@ -1,0 +1,10 @@
+<section class="hidden" [ngClass]="{hidden: !modalboxActive}">
+	<div class="shade" (click)="onShadeClick()"></div>
+	<div class="modalbox">
+		<header>
+			<p class="title">{{modalboxOptions.title}}</p>
+			<a class="close" *ngIf="modalboxOptions.showCloseButton" (click)="closeModal()">×</a>
+		</header>
+		<main id="ModalboxContent"></main>
+	</div>
+</section>

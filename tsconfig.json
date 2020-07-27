@@ -12,6 +12,12 @@
     },
     {
       "path": "./projects/angular-modalbox/tsconfig.spec.json"
+    },
+    {
+      "path": "./projects/angular-modalbox/tsconfig.lib.json"
+    },
+    {
+      "path": "./projects/angular-modalbox/tsconfig.spec.json"
     }
 ]
 }

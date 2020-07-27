@@ -7,7 +7,7 @@
       "projectType": "library",
       "root": "projects/angular-modalbox",
       "sourceRoot": "projects/angular-modalbox/src",
-      "prefix": "lib",
+      "prefix": "rr",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-ng-packagr:build",

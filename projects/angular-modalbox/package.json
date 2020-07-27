@@ -1,11 +1,5 @@
 {
   "name": "angular-modalbox",
-  "description": "A simple modalbox solution for Angular.",
-  "keywords": [
-    "angular",
-    "modal",
-    "modalbox"
-  ],
   "version": "0.0.1",
   "peerDependencies": {
     "@angular/common": "^10.0.5",
@@ -13,18 +7,5 @@
   },
   "dependencies": {
     "tslib": "^2.0.0"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/reachrepeat/angular-modalbox.git"
-  },
-  "bugs": {
-    "url": "https://github.com/reachrepeat/angular-modalbox/issues"
-  },
-  "author": {
-    "name": "Reach & Repeat",
-    "email": "email@reachrepeat.com",
-    "url": "https://www.reachrepeat.com"
-  },
-  "license": "MIT"
+  }
 }
