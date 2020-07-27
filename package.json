@@ -1,15 +1,15 @@
 {
-  "name": "angular-modalbox",
-  "version": "0.0.0",
+  "name": "@reachrepeat/angular-modalbox",
+  "version": "1.0.0",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "publish": "npm publish --access public"
   },
-  "private": true,
   "dependencies": {
     "@angular/animations": "~10.0.4",
     "@angular/common": "~10.0.4",
@@ -24,6 +24,8 @@
     "zone.js": "~0.10.3"
   },
   "devDependencies": {
+    "@angular-devkit/build-angular": "~0.1000.4",
+    "@angular-devkit/build-ng-packagr": "~0.1000.4",
     "@angular/cli": "~10.0.3",
     "@angular/compiler-cli": "~10.0.4",
     "@types/node": "^12.11.1",
@@ -37,9 +39,22 @@
     "karma-coverage-istanbul-reporter": "~3.0.2",
     "karma-jasmine": "~3.3.0",
     "karma-jasmine-html-reporter": "^1.5.0",
+    "ng-packagr": "^10.0.0",
     "protractor": "~7.0.0",
     "ts-node": "~8.3.0",
     "tslint": "~6.1.0",
     "typescript": "~3.9.5"
-  }
+  },
+  "description": "This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 10.0.3.",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/reachrepeat/angular-modalbox.git"
+  },
+  "author": "Mario Sommereder, Reach & Repeat oHG",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/reachrepeat/angular-modalbox/issues"
+  },
+  "homepage": "https://github.com/reachrepeat/angular-modalbox#readme"
 }
