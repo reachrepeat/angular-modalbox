@@ -2,9 +2,9 @@
 	<div class="shade" (click)="onShadeClick()"></div>
 	<div class="modalbox">
 		<header>
-			<p class="title">{{modalboxOptions.title}}</p>
+			<p class="title">{{modalboxOptions.modalboxTitle}}</p>
 			<a class="close" *ngIf="modalboxOptions.showCloseButton" (click)="closeModal()">×</a>
 		</header>
-		<main id="ModalboxContent"></main>
+		<main #modalboxContainer></main>
 	</div>
 </section>

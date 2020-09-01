@@ -1,11 +1,21 @@
 {
-  "name": "angular-modalbox",
-  "version": "0.0.1",
+  "name": "@reachrepeat/angular-modalbox",
+  "version": "0.0.2",
   "peerDependencies": {
     "@angular/common": "^10.0.5",
     "@angular/core": "^10.0.5"
   },
   "dependencies": {
     "tslib": "^2.0.0"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/reachrepeat/angular-modalbox.git"
+  },
+  "author": "Mario Sommereder, Reach & Repeat oHG",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/reachrepeat/angular-modalbox/issues"
+  },
+  "homepage": "https://github.com/reachrepeat/angular-modalbox#readme"
 }

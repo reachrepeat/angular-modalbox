@@ -1,14 +1,13 @@
 {
-  "name": "@reachrepeat/angular-modalbox",
-  "version": "1.0.0",
+  "name": "reachrepeat",
+  "version": "0.0.0",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e",
-    "publish": "npm publish --access public"
+    "e2e": "ng e2e"
   },
   "dependencies": {
     "@angular/animations": "~10.0.4",

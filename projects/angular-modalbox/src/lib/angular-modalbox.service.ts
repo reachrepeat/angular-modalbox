@@ -1,14 +1,28 @@
-import { ApplicationRef, ComponentFactoryResolver, EmbeddedViewRef, Injectable, Injector } from '@angular/core';
+import { ComponentFactory, ComponentFactoryResolver, EventEmitter, Injectable, Type } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 
-export interface AngularModalboxOptions {
-	title?: string;
+type PickKeysByType<T, K> = { [P in keyof T]: T[P] extends K ? P : never }[keyof T]
+type PickByType<T, K> = Pick<T, PickKeysByType<T, K>>;
+
+export interface ModalboxOptions {
+	modalboxTitle?: string;
 	showCloseButton?: boolean;
 	clickShadeToClose?: boolean;
 }
 
-const defaultAngularModalboxOptions: AngularModalboxOptions = {
-	title: '',
+export interface ModalboxInteractions<T> {
+	inputs?: { [prop in keyof T]?: T[prop] };
+	outputs?: Partial<PickByType<T, EventEmitter<any>>>;
+}
+
+export interface ModalboxProvider<T> {
+	modalboxFactory: ComponentFactory<T>;
+	modalboxOptions: ModalboxOptions;
+	modalboxInteractions: ModalboxInteractions<T>;
+}
+
+const defaultModalboxOptions: ModalboxOptions = {
+	modalboxTitle: '',
 	showCloseButton: true,
 	clickShadeToClose: true,
 };
@@ -20,18 +34,13 @@ export class AngularModalboxService {
 	
 	// PROPERTIES /////////////////////////////////////////////////////////////////////////////////////////////////////
 	
-	modalActive$ = new BehaviorSubject<boolean>(false);
-	modalOptions: AngularModalboxOptions = defaultAngularModalboxOptions;
-	
-	private containerId: string = 'ModalboxContent';
-	private componentRef: any;
+	private readonly _modal$ = new BehaviorSubject<Partial<ModalboxProvider<any>> | undefined>(undefined);
+	readonly modal$ = this._modal$.asObservable();
 	
 	// CONSTRUCTOR ////////////////////////////////////////////////////////////////////////////////////////////////////
 	
 	constructor(
-		private componentFactoryResolver: ComponentFactoryResolver,
-		private applicationRef: ApplicationRef,
-		private injector: Injector,
+		private readonly _componentFactoryResolver: ComponentFactoryResolver,
 	) {}
 	
 	// ANGULAR HOOKS //////////////////////////////////////////////////////////////////////////////////////////////////
@@ -40,42 +49,41 @@ export class AngularModalboxService {
 	
 	// PUBLIC FUNCTIONS ///////////////////////////////////////////////////////////////////////////////////////////////
 	
-	create(
-		component: any,
-		modalOptions: AngularModalboxOptions = {},
-		componentInputs: object = {},
-		componentOutputs: object = {},
+	create<T>(
+		component: Type<T>,
+		modalOptions: ModalboxOptions = {},
+		modalInteractions: ModalboxInteractions<T> = {},
 	) {
-		Object.assign(this.modalOptions, modalOptions);
+		const modalComponentFac = this._componentFactoryResolver.resolveComponentFactory(component);
 		
-		this.modalActive$.next(true);
-		
-		this.componentRef = this.componentFactoryResolver.resolveComponentFactory(component).create(this.injector);
-		
-		for (let [key, value] of Object.entries(componentInputs)) {
-			this.componentRef.instance[key] = value;
-		}
-		
-		for (let [key, value] of Object.entries(componentOutputs)) {
-			this.componentRef.instance[key] = value;
-		}
-		
-		this.applicationRef.attachView(this.componentRef.hostView);
-		
-		document
-			.getElementById(this.containerId)
-			?.appendChild((this.componentRef.hostView as EmbeddedViewRef<any>).rootNodes[0] as HTMLElement);
-		
-		return this.componentRef.instance;
+		this._modal$.next({
+			modalboxFactory: modalComponentFac,
+			modalboxOptions: { ...defaultModalboxOptions, ...modalOptions },
+			modalboxInteractions: modalInteractions,
+		});
 	}
 	
 	// ----------------------------------------------------------------------------------------------------------------
 	
 	destroy() {
-		this.applicationRef.detachView(this.componentRef.hostView);
-		this.componentRef.destroy();
-		this.modalOptions = defaultAngularModalboxOptions;
-		this.modalActive$.next(false);
+		this._modal$.next(undefined);
+	}
+	
+	// ----------------------------------------------------------------------------------------------------------------
+	
+	updateModalboxOptions(
+		modalOptions: Partial<ModalboxOptions>,
+	) {
+		if (
+			this._modal$.value
+		) {
+			this._modal$.next({
+				modalboxOptions: {
+					...this._modal$.value.modalboxOptions,
+					...modalOptions,
+				},
+			});
+		}
 	}
 	
 	// PROTECTED FUNCTIONS ////////////////////////////////////////////////////////////////////////////////////////////
